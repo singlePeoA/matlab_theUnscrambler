@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .Data_table{
+            width: 485px;
+            height: 325px;
+            background-color: rgb(240,240,240);
+            border-radius: 5px;
+        }
+        .top{
+            width: 435px;
+            height: 25px;
+            background-color: rgb(243, 243, 243);
+            border-radius: 5px 5px 0 0;
+        }
+        .top span{
+            font-size: 12px;
+            color: rgb(145, 145, 145);
+        }
+        .top_text{
+            margin-left: 4px;
+        }
+        .delete_fn{
+            position: relative;
+            right: -460px;
+            top: -21px;
+            display: block;
+            width: 25px;
+            height: 25px;
+            line-height: 25px;
+            text-align: center;
+            border-radius: 0 5px 0 0;
+        }
+        .delete_fn:hover{
+            color: white;
+            background-color: #c42b1c;
+        }
+        .left{
+            width: 375px;
+            height: 300px;
+            float: left;
+            font-size: 11px;
+        }
+        .right{
+            width: 110px;
+            height: 300px;
+            float: right;
+        }
+        .left_top{
+            width: 355px;
+            height: 120px;
+            margin: 5px auto;
+        }
+        .left_top_div{
+            width: 340px;
+            height: 100px;
+            border: #a0a0a0 1px solid;
+        }
+        .left_bottom{
+            width: 355px;
+            height: 180px;
+            margin: 0 auto;
+        }
+        .left_bottom_div{
+            width: 340px;
+            height: 140px;
+            border: #a0a0a0 1px solid;
+        }
+        .right button{
+            margin-top: 5px;
+            border-radius: 0px;
+            /* box-shadow: inset; */
+            box-shadow: inset -1px -1px 1px #686868;
+            width: 80px;
+            border: #f5f5f5 1px solid;
+            height: 25px;
+        }
+        form{
+            margin: 10px 15px;
+        }
+        form input{
+            margin-top: 8px;
+        }
+        .right div .okbtn{
+            box-shadow: inset -1px -1px 2px #686868;
+            border: #a5a5a5 1px solid;
+        }
+        .right div{
+            margin-top: 16px;
+        }
+        .right div .cancelBtn:visited{
+            box-shadow: inset -1px -1px 2px #686868;
+            border: #a5a5a5 1px solid;
+            .okbtn{
+                box-shadow: inset -1px -1px 1px #686868;
+                border: #f5f5f5 1px solid;
+            }
+        }
+        .left_bottom_div .numberbtn{
+            width: 70px;
+            border: #6a6a6a solid 1px;
+        }
+        table{
+            margin-top: 5px;
+            margin-left: 15px;
+        }
+        table tr td{
+            height: 25px;
+        }
+        .first{
+            width: 180px;
+        }
+    </style>
+</head>
+<body>
+    <div class="Data_table">
+        <div class="top">
+            <span class="top_text">新建数据表格</span>
+            <span class="delete_fn">X</span>
+        </div>
+        <div class="left">
+            <div class="left_top">
+                <span>排版</span>
+                <div class="left_top_div">
+                    <form>
+                        <input type="radio" name="choose" checked><span>普通二维数据表</span>
+                        <br>
+                        <input type="radio" name="choose"><span>三维数据表，布局&nbsp;&nbsp;(对象 x 变量)</span>
+                        <br>
+                        <input type="radio" name="choose"><span>三维数据表，布局&nbsp;&nbsp;(对象 y 对象)</span>
+                    </form>
+                </div>
+            </div>
+            <div class="left_bottom">
+                <span>尺寸</span>
+                <div class="left_bottom_div">
+                    <table>
+                        <tr>
+                            <td class="first">变量:</td>
+                            <td><input type="number" class="numberbtn" value="25"></td>
+                        </tr>
+                        <tr>
+                            <td class="first" style="opacity: 0.5;">第二变量:</td>
+                            <td><input type="number" class="numberbtn" value="1" disabled></td>
+                        </tr>
+                        <tr class="Samples">
+                            <td class="first">样本:</td>
+                            <td><input type="number" class="numberbtn" value="25"></td>
+                        </tr>
+                        <tr>
+                            <td class="first" style="opacity: 0.5;">第二样本:</td>
+                            <td><input type="number" class="numberbtn" value="1" disabled></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <div>
+                <button class="okbtn">确认</button>
+                <br>
+                <button class="cancelBtn">取消</button>
+                <br>
+                <button>帮助</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    let okbtn = document.querySelector('.okbtn');
+    let booleans = "none";
+    let booleans2 = "unvisiable";
+    let delete_fn = document.querySelector('.delete_fn');
+    let Data_table = document.querySelector('.Data_table');
+    let cancelBtn = document.querySelector('.cancelBtn');
+
+    // 下面这个函数用于将matlab中的App designer和当前这个html文件连接起来
+    function setup(htmlComponent){
+        // 这里面定义两个函数
+        // 这个函数用于获取App designer到html的数据
+        function dataChanged(event){
+            // htmlComponent.Data就是App designer传递进来的值
+            booleans2 = htmlComponent.Data  //  接收App designer传递过来的数据，根据这个数据来判断是否要显示Data_table
+            if (booleans2 == "visiable"){
+                Data_table.style.display = '';
+            }
+        }
+        
+        // 这个函数用于传递html到App designer的数据
+        function valueChanged(event){
+            // htmlComponent.Data也可以用于接收html传递给App designer的数据
+        }
+        okbtn.addEventListener('click',function(){
+            booleans = "true"       // ok按钮一点击的时候将booleans传递给App designer
+            htmlComponent.Data = booleans
+        })
+        delete_fn.addEventListener('click',function(){
+            booleans = "false"       
+            htmlComponent.Data = booleans
+        })
+        cancelBtn.addEventListener('click',function(){
+            booleans = "false"      
+            htmlComponent.Data = booleans
+        })
+        htmlComponent.addEventListener('DataChanged',dataChanged)   // 给App designer注册监听事件，当App designer中的Data数据发生变化的时候触发
+        // dataChanged();
+    }
+
+</script>
+</html>
